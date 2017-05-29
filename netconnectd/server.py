@@ -403,6 +403,7 @@ class Server(object):
 
             self.wifi_available = False
             self.logger.warn("Could not connect to wifi %s" % self.wifi_connection_ssid)
+            self.logger.exception("Martin error")
             try:
                 self.wifi_connection.deactivate()
             except:

@@ -386,7 +386,7 @@ class Server(object):
             return True
 
         except wifi.scheme.WifiError as e:
-            if isinstance(e, wifi.scheme.InterfaceError):
+            if isinstance(e, wifi.scheme.InterfaceError) or isinstance(e, wifi.scheme.ConnectionError):
                 # trying to connect to the network failed with an interface error => might be that the driver hiccuped due to
                 # some earlier event, or that our interface was not ready yet, so we now try to reset it by blocking/unblocking
                 # it and then trying to activate the AP a second time
@@ -403,7 +403,6 @@ class Server(object):
 
             self.wifi_available = False
             self.logger.warn("Could not connect to wifi %s" % self.wifi_connection_ssid)
-            self.logger.exception("Martin error")
             try:
                 self.wifi_connection.deactivate()
             except:
